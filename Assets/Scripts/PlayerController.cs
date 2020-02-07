@@ -9,16 +9,19 @@ public class PlayerController : MonoBehaviour
     [NonSerialized]
     public static PlayerController instance;
 
+    private CharacterController character;
+
     // Player movement speed
     public float Speed = 1f;
     private void Start()
     {
         instance = this;
+        character = GetComponent<CharacterController>();
     }
 
     public void FixedUpdate()
     {
         // Movement
-        transform.position += Time.fixedDeltaTime * Speed * new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
+        character.Move(Time.fixedDeltaTime * Speed * new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical")).normalized);
     }
 }
