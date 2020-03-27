@@ -5,8 +5,9 @@ using System.ComponentModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController), typeof(NavMeshObstacle))]
 public class Entity : MonoBehaviour
 {
     public struct StatsStruct
@@ -34,8 +35,10 @@ public class Entity : MonoBehaviour
 
     private void FixedUpdate()
     {
+        velocity += Physics.gravity * Time.fixedDeltaTime;
         controller.Move(velocity * Time.fixedDeltaTime);
-        velocity *= .6f;
+        velocity.x *= .6f;
+        velocity.z *= .6f;
     }
 
     /// <summary>

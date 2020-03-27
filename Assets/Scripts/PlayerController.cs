@@ -5,6 +5,7 @@ using Object = UnityEngine.Object;
 
 class PlayerController : Entity
 {
+    // Test stuff
     // Temporary during testing
     [NonSerialized]
     private float damage = 1f;
@@ -24,8 +25,8 @@ class PlayerController : Entity
         {
             if (colliders[i].CompareTag("Entity") && colliders[i].gameObject != gameObject)
             {
-                Vector3 hitPoint = position - colliders[i].ClosestPointOnBounds(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                if (Vector2.Angle(new Vector2(aim.x,aim.z), new Vector2(hitPoint.x,hitPoint.z)) < 35f)
+                Vector3 hitVec = position - colliders[i].ClosestPointOnBounds(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (Vector2.Angle(new Vector2(aim.x,aim.z), new Vector2(hitVec.x,hitVec.z)) < 35f)
                 {
                     colliders[i].gameObject.SendMessage("Damage", damage);
                     Vector3 knockBack = colliders[i].transform.position - position;
@@ -41,7 +42,7 @@ class PlayerController : Entity
 
     private float swingTimer = 0f;
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
         if (swingTimer > 0f) swingTimer -= Time.fixedDeltaTime;
         if (swingTimer < 0f) swingTimer = 0f;
